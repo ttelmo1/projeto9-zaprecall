@@ -1,6 +1,6 @@
 import FlashCard from "./FlashCard"
 
-export default function Cards(){
+export default function Cards(props){
     const cards = [
         { question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
         { question: "O React é __", answer: "Uma biblioteca JavaScript para construção de interfaces" },
@@ -12,9 +12,10 @@ export default function Cards(){
         { question: "Usamos estado (state) para __", answer: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" }
     ]
 
+
     return(
         <ul>
-            {cards.map((q, i) => (<FlashCard i={i} q={q}/>))}
+            {cards.map((q, i) => (<FlashCard concluded={props.concluded} setConcluded={props.setConcluded} i={i} q={q}></FlashCard>))}
         </ul>
     )
 }

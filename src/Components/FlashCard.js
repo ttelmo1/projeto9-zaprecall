@@ -8,14 +8,14 @@ export default function FlashCard(props) {
     const newClicked = [...clicked, props.i]
     const [showAnswer, setShowAnswer] = useState(false) 
     const [hideQuestion, setHideQuestion] = useState(true)
-    console.log(clicked)
+    const [arr, setArr] = useState([])
+    
 
     function flipCard() {
 
         setClicked(newClicked)
         console.log(props.q.question)
         console.log(newClicked)
-        console.log(clicked)
     }
 
     // function flipBack() {
@@ -27,12 +27,19 @@ export default function FlashCard(props) {
         setHideQuestion(false)
     }
 
+    function addConcluded(){
+        props.setConcluded(props.concluded + 1)
+        setArr([...arr, props.i])
+        setClicked([])
+    }
+
     return (
 
         <>
             <QuestionClosed
                 display={!clicked.includes(props.i)}
                 onClick={() => flipCard()}
+                finished={arr.includes(props.i)}
             >
                 <p>Pergunta {props.i + 1}</p>
                 <img src={seta_play} />
@@ -50,6 +57,16 @@ export default function FlashCard(props) {
 
                 {hideQuestion && (
                 <img onClick={() => flipAnswer()} src={seta_virar} />
+                )}
+
+                {showAnswer &&(
+                <>  
+                    <div>
+                        <button onClick={()=> addConcluded()}>Não lembrei</button>
+                        <button onClick={()=> addConcluded()}>Quase não lembrei</button>
+                        <button onClick={()=> addConcluded()}>Zap!</button>
+                    </div>
+                </>
                 )}
             </QuestionOpened>
         </>
@@ -75,6 +92,7 @@ const QuestionClosed = styled.li`
     font-size: 16px;
     line-height: 19px;
     color: #333333;
+    text-decoration:${props => props.finished === true ? 'line-through' : 'none'};
 }
 `
 const QuestionOpened = styled.li`
@@ -95,9 +113,43 @@ const QuestionOpened = styled.li`
     position: relative;
     flex-direction: column;
     justify-content: space-between;
+
     > img{
     position: absolute;
     bottom: 10px;
     right: 10px;
-}
+    }
+
+    > div {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    > div button {
+    width: 85px;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFFFFF;
+    background: blue;
+    border-radius: 5px;
+    border: none;
+    padding:5px;
+    }
+    
+    button:nth-child(1){
+        background: #FF3030;
+    }
+    button:nth-child(2){
+        background: #FF922E;;
+    }
+    button:nth-child(3){
+        background:  #2FBE34;
+    }
 `

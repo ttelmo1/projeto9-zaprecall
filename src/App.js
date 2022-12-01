@@ -18,7 +18,7 @@ export default function App() {
           <img src={logo}/>
           <h1>ZapRecall</h1>
         </LogoContainer>
-        <Cards setConcluded={setConcluded} />
+        <Cards setConcluded={setConcluded} concluded={concluded} />
         <Concluded concluded={concluded} />
       </ScreenContainer>
     </>
