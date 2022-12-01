@@ -6,6 +6,8 @@ import seta_virar from "../Assets/img/seta_virar.png"
 export default function FlashCard(props) {
     const [clicked, setClicked] = useState([])
     const newClicked = [...clicked, props.i]
+    const [showAnswer, setShowAnswer] = useState(false) 
+    const [hideQuestion, setHideQuestion] = useState(true)
     console.log(clicked)
 
     function flipCard() {
@@ -16,8 +18,13 @@ export default function FlashCard(props) {
         console.log(clicked)
     }
 
-    function flipBack() {
-        setClicked([])
+    // function flipBack() {
+    //     setClicked([])
+    // }
+
+    function flipAnswer(){
+        setShowAnswer(true)
+        setHideQuestion(false)
     }
 
     return (
@@ -32,10 +39,18 @@ export default function FlashCard(props) {
             </QuestionClosed>
             <QuestionOpened
                 display={clicked.includes(props.i)}
-                onClick={() => flipBack()}
             >
+                {hideQuestion &&(
                 <p>{props.q.question}</p>
-                <img src={seta_virar} />
+                )}
+                
+                {showAnswer &&(
+                <p>{props.q.answer}</p>
+                )}
+
+                {hideQuestion && (
+                <img onClick={() => flipAnswer()} src={seta_virar} />
+                )}
             </QuestionOpened>
         </>
     )
