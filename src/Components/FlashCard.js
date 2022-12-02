@@ -17,15 +17,8 @@ export default function FlashCard(props) {
     
 
     function flipCard() {
-
         setClicked(newClicked)
-        console.log(props.q.question)
-        console.log(newClicked)
     }
-
-    // function flipBack() {
-    //     setClicked([])
-    // }
 
     function flipAnswer(){
         setShowAnswer(true)
@@ -61,17 +54,15 @@ export default function FlashCard(props) {
         <>
             <QuestionClosed
                 display={!clicked.includes(props.i)}
-                onClick={() => flipCard()}
+                
                 finished={arr.includes(props.i)}
                 color={color}
                 
             >
-                {/* <button disabled={arr.includes(props.i)}>
-                    <p>Pergunta {props.i + 1}</p>
-                    <img src={seta_play} />
-                </button> */}
                 <p>Pergunta {props.i + 1}</p>
-                <img src={icon} />
+                <button disabled={arr.includes(props.i)} onClick={() => flipCard()}>
+                    <img src={icon}/>
+                </button>
             </QuestionClosed>
             <QuestionOpened
                 display={clicked.includes(props.i)}
@@ -114,21 +105,8 @@ const QuestionClosed = styled.li`
     align-items: center;
     justify-content: space-between;
 
-    /* > button {
-    display:${props => props.display === true ? 'flex' : 'none'};
-    width: 300px;
-    height: 35px;
-    background-color: #FFFFFF;
-    margin: 12px;
-    padding: 15px;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
-    align-items: center;
-    justify-content: space-between;
-    }
-     */
-
     > p {
+    cursor: default;
     font-family: 'Recursive';
     font-style: normal;
     font-weight: 700;
@@ -136,7 +114,12 @@ const QuestionClosed = styled.li`
     line-height: 19px;
     color: ${props => props.color};
     text-decoration:${props => props.finished === true ? 'line-through' : 'none'};
-}
+    }
+
+    > button {
+        border: none;
+        background-color: #FFFFFF;
+    }
 `
 const QuestionOpened = styled.li`
     display:${props => props.display === true ? 'flex' : 'none'};

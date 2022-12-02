@@ -5,10 +5,12 @@ import styled from "styled-components";
 import logo from "./Assets/img/logo.png"
 import Cards from "./Components/Cards"
 import Concluded from "./Components/Concluded"
+import Welcome from "./Components/Welcome"
 
 
 export default function App() {
   const [concluded ,setConcluded] = useState(0)
+
 
   return (
     <>
@@ -18,6 +20,7 @@ export default function App() {
           <img src={logo}/>
           <h1>ZapRecall</h1>
         </LogoContainer>
+        {/* <Welcome /> */}
         <Cards setConcluded={setConcluded} concluded={concluded} />
         <Concluded concluded={concluded} />
       </ScreenContainer>
@@ -52,7 +55,7 @@ const LogoContainer = styled.div`
   line-height: 45px;
   color: #FFFFFF;
   margin-left: 20px;
+  cursor: default
 }
 `
-
 
