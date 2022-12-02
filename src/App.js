@@ -32,7 +32,7 @@ export default function App() {
           <Welcome>
             <img src={logo} />
             <h1>ZapRecall</h1>
-            <button onClick={()=> startRecall()}>Iniciar Recall!</button>
+            <button onClick={()=> startRecall()} data-test="start-btn">Iniciar Recall!</button>
           </Welcome>
         }
         {cardsScreen && <Cards setConcluded={setConcluded} concluded={concluded} />}
