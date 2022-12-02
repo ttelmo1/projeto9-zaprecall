@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export default function Concluded(props){
     return(
-        <ZapFooter>
+        <ZapFooter data-test="footer">
             <p>{props.concluded}/8 Concluídos</p>
         </ZapFooter>
     )
