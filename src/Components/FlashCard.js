@@ -1,6 +1,9 @@
 import { useState } from "react"
 import styled from "styled-components"
 import seta_play from "../Assets/img/seta_play.png"
+import icone_certo from "../Assets/img/icone_certo.png"
+import icone_erro from "../Assets/img/icone_erro.png"
+import icone_quase from "../Assets/img/icone_quase.png"
 import seta_virar from "../Assets/img/seta_virar.png"
 
 export default function FlashCard(props) {
@@ -9,6 +12,8 @@ export default function FlashCard(props) {
     const [showAnswer, setShowAnswer] = useState(false) 
     const [hideQuestion, setHideQuestion] = useState(true)
     const [arr, setArr] = useState([])
+    const [color, setColor] = useState('black')
+    const [icon, setIcon] = useState(seta_play)
     
 
     function flipCard() {
@@ -27,9 +32,27 @@ export default function FlashCard(props) {
         setHideQuestion(false)
     }
 
-    function addConcluded(){
+    function addConcludedNeg(){
         props.setConcluded(props.concluded + 1)
         setArr([...arr, props.i])
+        setColor('#FF3030')
+        setIcon(icone_erro)
+        setClicked([])
+    }
+
+    function addConcludedHalf(){
+        props.setConcluded(props.concluded + 1)
+        setArr([...arr, props.i])
+        setColor('#FF922E')
+        setIcon(icone_quase)
+        setClicked([])
+    }
+
+    function addConcludedYes(){
+        props.setConcluded(props.concluded + 1)
+        setArr([...arr, props.i])
+        setColor('#2FBE34')
+        setIcon(icone_certo)
         setClicked([])
     }
 
@@ -40,9 +63,15 @@ export default function FlashCard(props) {
                 display={!clicked.includes(props.i)}
                 onClick={() => flipCard()}
                 finished={arr.includes(props.i)}
+                color={color}
+                
             >
+                {/* <button disabled={arr.includes(props.i)}>
+                    <p>Pergunta {props.i + 1}</p>
+                    <img src={seta_play} />
+                </button> */}
                 <p>Pergunta {props.i + 1}</p>
-                <img src={seta_play} />
+                <img src={icon} />
             </QuestionClosed>
             <QuestionOpened
                 display={clicked.includes(props.i)}
@@ -50,21 +79,21 @@ export default function FlashCard(props) {
                 {hideQuestion &&(
                 <p>{props.q.question}</p>
                 )}
-                
-                {showAnswer &&(
-                <p>{props.q.answer}</p>
-                )}
 
                 {hideQuestion && (
                 <img onClick={() => flipAnswer()} src={seta_virar} />
                 )}
 
                 {showAnswer &&(
+                <p>{props.q.answer}</p>
+                )}
+
+                {showAnswer &&(
                 <>  
                     <div>
-                        <button onClick={()=> addConcluded()}>Não lembrei</button>
-                        <button onClick={()=> addConcluded()}>Quase não lembrei</button>
-                        <button onClick={()=> addConcluded()}>Zap!</button>
+                        <button onClick={()=> addConcludedNeg()}>Não lembrei</button>
+                        <button onClick={()=> addConcludedHalf()}>Quase não lembrei</button>
+                        <button onClick={()=> addConcludedYes()}>Zap!</button>
                     </div>
                 </>
                 )}
@@ -85,13 +114,27 @@ const QuestionClosed = styled.li`
     align-items: center;
     justify-content: space-between;
 
+    /* > button {
+    display:${props => props.display === true ? 'flex' : 'none'};
+    width: 300px;
+    height: 35px;
+    background-color: #FFFFFF;
+    margin: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    }
+     */
+
     > p {
     font-family: 'Recursive';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #333333;
+    color: ${props => props.color};
     text-decoration:${props => props.finished === true ? 'line-through' : 'none'};
 }
 `
