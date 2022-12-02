@@ -14,6 +14,7 @@ export default function FlashCard(props) {
     const [arr, setArr] = useState([])
     const [color, setColor] = useState('black')
     const [icon, setIcon] = useState(seta_play)
+    const [dataTest, setDataTest] = useState('')
     
 
     function flipCard() {
@@ -30,6 +31,7 @@ export default function FlashCard(props) {
         setArr([...arr, props.i])
         setColor('#FF3030')
         setIcon(icone_erro)
+        setDataTest('no-icon')
         setClicked([])
     }
 
@@ -38,6 +40,7 @@ export default function FlashCard(props) {
         setArr([...arr, props.i])
         setColor('#FF922E')
         setIcon(icone_quase)
+        setDataTest('partial-icon')
         setClicked([])
     }
 
@@ -46,6 +49,7 @@ export default function FlashCard(props) {
         setArr([...arr, props.i])
         setColor('#2FBE34')
         setIcon(icone_certo)
+        setDataTest('zap-icon')
         setClicked([])
     }
 
@@ -54,37 +58,36 @@ export default function FlashCard(props) {
         <>
             <QuestionClosed
                 display={!clicked.includes(props.i)}
-                
+                data-test="flashcard"
                 finished={arr.includes(props.i)}
                 color={color}
-                
             >
-                <p>Pergunta {props.i + 1}</p>
-                <button disabled={arr.includes(props.i)} onClick={() => flipCard()}>
-                    <img src={icon}/>
+                <p data-test="flashcard-text" >Pergunta {props.i + 1}</p>
+                <button disabled={arr.includes(props.i)} onClick={() => flipCard()} data-test="play-btn">
+                    <img src={icon} data-test={dataTest} />
                 </button>
             </QuestionClosed>
             <QuestionOpened
                 display={clicked.includes(props.i)}
             >
                 {hideQuestion &&(
-                <p>{props.q.question}</p>
+                <p data-test="flashcard-text">{props.q.question}</p>
                 )}
 
                 {hideQuestion && (
-                <img onClick={() => flipAnswer()} src={seta_virar} />
+                <img onClick={() => flipAnswer()} src={seta_virar} data-test="turn-btn" />
                 )}
 
                 {showAnswer &&(
-                <p>{props.q.answer}</p>
+                <p data-test="flashcard-text">{props.q.answer}</p>
                 )}
 
                 {showAnswer &&(
                 <>  
                     <div>
-                        <button onClick={()=> addConcludedNeg()}>Não lembrei</button>
-                        <button onClick={()=> addConcludedHalf()}>Quase não lembrei</button>
-                        <button onClick={()=> addConcludedYes()}>Zap!</button>
+                        <button onClick={()=> addConcludedNeg()} data-test="no-btn">Não lembrei</button>
+                        <button onClick={()=> addConcludedHalf()} data-test="partial-btn">Quase não lembrei</button>
+                        <button onClick={()=> addConcludedYes()} data-test="zap-btn">Zap!</button>
                     </div>
                 </>
                 )}
