@@ -106,5 +106,6 @@ const Welcome = styled.div`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
+    cursor: pointer;
   }
 `
