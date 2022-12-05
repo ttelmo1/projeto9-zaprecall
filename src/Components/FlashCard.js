@@ -12,7 +12,7 @@ export default function FlashCard(props) {
     const [showAnswer, setShowAnswer] = useState(false) 
     const [hideQuestion, setHideQuestion] = useState(true)
     const [arr, setArr] = useState([])
-    const [color, setColor] = useState('black')
+    const [color, setColor] = useState('#333333')
     const [icon, setIcon] = useState(seta_play)
     const [dataTest, setDataTest] = useState('')
     
